@@ -14,12 +14,13 @@ public class UserPrincipal implements UserDetails {
    private User user;//entity
 
 
+
     public UserPrincipal(User user) {
         this.user = user;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<? extends GrantedAuthority> getAuthorities() {//how the Spring understand the role
         List<GrantedAuthority>authorityList=new ArrayList<>();
         GrantedAuthority authority = new SimpleGrantedAuthority(this.user.getRole().getDescription());
         authorityList.add(authority);
@@ -54,5 +55,8 @@ public class UserPrincipal implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.user.isEnabled();
+    }
+    public Long getId(){
+        return this.user.getId();
     }
 }
