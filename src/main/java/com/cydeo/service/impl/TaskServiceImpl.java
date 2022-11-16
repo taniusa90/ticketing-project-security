@@ -57,9 +57,9 @@ public class TaskServiceImpl implements TaskService {
     public void update(TaskDTO dto) {
 
         Optional<Task> task = taskRepository.findById(dto.getId());
-        Task convertedTask = taskMapper.convertToEntity(dto);
+        Task convertedTask  = taskMapper.convertToEntity(dto);
 
-        if (task.isPresent()) {
+        if(task.isPresent()){
             convertedTask.setTaskStatus(dto.getTaskStatus() == null ? task.get().getTaskStatus() : dto.getTaskStatus());
             convertedTask.setAssignedDate(task.get().getAssignedDate());
             taskRepository.save(convertedTask);
@@ -72,7 +72,7 @@ public class TaskServiceImpl implements TaskService {
 
         Optional<Task> foundTask = taskRepository.findById(id);
 
-        if (foundTask.isPresent()) {
+        if(foundTask.isPresent()){
             foundTask.get().setIsDeleted(true);
             taskRepository.save(foundTask.get());
         }
@@ -84,7 +84,7 @@ public class TaskServiceImpl implements TaskService {
 
         Optional<Task> task = taskRepository.findById(id);
 
-        if (task.isPresent()) {
+        if(task.isPresent()){
             return taskMapper.convertToDto(task.get());
         }
         return null;
@@ -119,7 +119,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskDTO> listAllTasksByStatusIsNot(Status status) {
-        String username= SecurityContextHolder.getContext().getAuthentication().getName();
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
         UserDTO loggedInUser = userService.findByUserName(username);
         List<Task> tasks = taskRepository.
@@ -129,7 +130,11 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskDTO> listAllTasksByStatus(Status status) {
-        UserDTO loggedInUser = userService.findByUserName("john@employee.com");
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        UserDTO loggedInUser = userService.findByUserName(username);
+
         List<Task> tasks = taskRepository.
                 findAllByTaskStatusAndAssignedEmployee(status, userMapper.convertToEntity(loggedInUser));
         return tasks.stream().map(taskMapper::convertToDto).collect(Collectors.toList());
@@ -141,4 +146,5 @@ public class TaskServiceImpl implements TaskService {
                 .findAllByTaskStatusIsNotAndAssignedEmployee(Status.COMPLETE, userMapper.convertToEntity(assignedEmployee));
         return tasks.stream().map(taskMapper::convertToDto).collect(Collectors.toList());
     }
+
 }

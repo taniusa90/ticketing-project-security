@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService{
     private final TaskService taskService;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, @Lazy ProjectService projectService, @Lazy TaskService taskService, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, ProjectService projectService, TaskService taskService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.projectService = projectService;
@@ -48,10 +48,14 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void save(UserDTO user) {
+
         user.setEnabled(true);
-      User obj = userMapper.convertToEntity(user);
-      obj.setPassWord(passwordEncoder.encode(obj.getPassWord()));
-      userRepository.save(obj);
+
+        User obj = userMapper.convertToEntity(user);
+        obj.setPassWord(passwordEncoder.encode(obj.getPassWord()));
+
+        userRepository.save(obj);
+
     }
 
 //    @Override
@@ -109,6 +113,7 @@ public class UserServiceImpl implements UserService{
         }
 
     }
+
 
     }
 
