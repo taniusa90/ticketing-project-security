@@ -29,7 +29,7 @@ public class SecurityConfig {
         }
 
         //    @Bean
-        // public UserDetailsService userDetailsService(PasswordEncoder encoder){
+        // public UserDetailsService userDetailsService(PasswordEncoder encoder){//to create my own users
 //
 //        List<UserDetails>userList = new ArrayList<>();
 //        userList.add(new User("mike",encoder.encode("password"), Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"))));//CREATE NEW USER NEED TO PROVIDE CONSTRUCTOR
