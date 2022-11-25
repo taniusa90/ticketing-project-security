@@ -45,9 +45,9 @@ public class SecurityConfig {
 //               .antMatchers("/user/**").hasRole("ADMIN")//localhost/need to be access by Role Admin EVERYTHING FROM USER CONTROLLER SHOUD BE ACCESIBLE BY ADMIN
                     .antMatchers("/project/**").hasAuthority("Manager")
                     .antMatchers("/task/employee/**").hasAuthority("Employee")
-                    .antMatchers("/task/**").hasAuthority("Manager")//ANYONE WITH ROLE ADMIN CAN ACCES HIS OWN PAGE
+                    .antMatchers("/task/**").hasAuthority("Manager")
                     // .antMatchers("task/**").hasAnyRole("EMPLOYEE","ADMIN")
-                    .antMatchers("/user/**").hasAuthority("Admin")//need to put role_admin,restrict the pages
+                    .antMatchers("/user/**").hasAuthority("Admin")
                     .antMatchers(
                             "/login",
                             "/fragments/**",
